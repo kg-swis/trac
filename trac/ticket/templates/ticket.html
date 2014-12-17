@@ -139,7 +139,7 @@
                         </py:for></py:if>
                     </py:if>
                   </span>
-                  <i18n:msg params="date, author">Changed ${dateinfo(change.date)} ago by ${authorinfo(change.author)}</i18n:msg>
+                  ${format_datetime(change.date)}: <i18n:msg params="date, author">Changed ${dateinfo(change.date)} ago by ${authorinfo(change.author)}</i18n:msg>
                 </h3>
                 <py:if test="not show_editor and comment_version == max_version">
                   <form py:if="'cnum' in change and can_edit_comment" method="get" action="#comment:${change.cnum}">

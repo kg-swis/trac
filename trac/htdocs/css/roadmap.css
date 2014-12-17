@@ -19,7 +19,7 @@ table.progress :link:hover, table.progress :visited:hover {
  text-decoration: none
 }
 table.progress td { background: #fff; padding: 0 }
-table.progress td.new { background: #f5f5b5 }
+table.progress td.new {  }
 table.progress td.closed { background: #bae0ba }
 table.progress td :hover { background: none }
 p.percent { 
