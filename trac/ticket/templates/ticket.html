@@ -227,13 +227,23 @@ ${comment}</textarea>
           <h2 py:if="ticket.exists" class="foldable">Modify Ticket</h2>
           <div id="modify">
             <!--! Properties -->
-            <fieldset id="properties" py:if="can_modify or can_edit or can_create"
-                      py:with="fields = [f for f in fields if not f.skip]">
+            <fieldset id="properties" py:if="can_modify or can_edit or can_create" 
+            	py:with="type_field = [f for f in fields if f.name=='type'][0]; fields = [f for f in fields if not f.skip]">
               <legend py:choose="">
                   <py:when test="ticket.exists">Change Properties</py:when>
                   <py:otherwise>Properties</py:otherwise>
               </legend>
               <table>
+                <tr py:if="can_modify or can_create">
+                  <th><label for="field-summary">Type:</label></th>
+                  <td class="fullrow" colspan="3">
+                      <select id="field-type" name="field_type" py:with="value = ticket.get_value_or_default('type')">
+                        <option py:for="option in type_field.options" 
+                        selected="${value == option or None}"
+                        value="$option" py:content="option"></option>
+                      </select>
+                  </td>
+                </tr>
                 <tr py:if="can_modify or can_create">
                   <th><label for="field-summary">Summary:</label></th>
                   <td class="fullrow" colspan="3">
@@ -268,8 +278,7 @@ ${ticket.description}</textarea>
                 <tr py:for="row in group(fields, 2, lambda f: f.type != 'textarea')"
                     py:if="can_modify or can_create"
                     py:with="fullrow = len(row) == 1">
-                  <py:for each="idx, field in enumerate(row)"
-                          py:with="value = ticket.get_value_or_default(field.name)">
+                  <py:for each="idx, field in enumerate(row)" py:with="value = ticket.get_value_or_default(field.name)">
                     <th class="col${idx + 1}" py:if="idx == 0 or not fullrow">
                       <label for="field-${field.name}" py:if="field"
                              py:strip="field.type == 'radio'" i18n:msg="field">${

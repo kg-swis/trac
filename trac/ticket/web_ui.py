@@ -1353,7 +1353,7 @@ class TicketModule(Component):
 
             # per field settings
             if name in ('summary', 'reporter', 'description', 'status',
-                        'resolution', 'time', 'changetime'):
+                        'resolution', 'time', 'changetime', 'type'):
                 field['skip'] = True
             elif name == 'owner':
                 TicketSystem(self.env).eventually_restrict_owner(field, ticket)
